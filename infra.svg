@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" width="1000" height="330" role="img" aria-label="my homelab: cloudflare tunnels into neo and cayde; neo, cayde and oracle share a tailnet.">
+  <style>
+    .panel { fill: #f6f8fa; stroke: #d0d7de; }
+    .node { fill: #ffffff; stroke: #d0d7de; }
+    .title { fill: #1f2328; font: 700 18px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .key { fill: #8c959f; font: 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .val { fill: #57606a; font: 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .edge { fill: #8c959f; font: 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 1px; }
+    .label { fill: #8c959f; font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 2px; }
+    .wire { stroke: #d0d7de; }
+    .flow { stroke: #1a7f37; animation: flow 1.6s linear infinite; }
+    .flow.rev { animation-direction: reverse; }
+    .a { fill: #f38020; }
+    .b { fill: #0969da; }
+    .ring { fill: none; stroke: #f38020; }
+    .stream { stroke-width: 2.2; stroke-dasharray: 20 26; animation: stream 1.1s linear infinite; }
+    .stream.glow { stroke-width: 7; opacity: 0.2; }
+    .dots { stroke-width: 3.2; stroke-dasharray: 0 9; animation: dots 0.45s linear infinite; opacity: 0.8; }
+    .pa { stroke: #f38020; }
+    .pb { stroke: #0969da; }
+    .ring.rb { stroke: #0969da; }
+    @keyframes stream { to { stroke-dashoffset: -46; } }
+    @keyframes dots { to { stroke-dashoffset: -9; } }
+    @keyframes flow { to { stroke-dashoffset: -20; } }
+    @media (prefers-color-scheme: dark) {
+      .panel { fill: #0d1117; stroke: #30363d; }
+      .node { fill: #161b22; stroke: #30363d; }
+      .title { fill: #e6edf3; }
+      .key { fill: #6e7681; }
+      .val { fill: #8b949e; }
+      .edge { fill: #6e7681; }
+      .label { fill: #6e7681; }
+      .wire { stroke: #21262d; }
+      .flow { stroke: #7ee787; }
+      .a { fill: #fb8c2e; }
+      .b { fill: #79c0ff; }
+      .ring { stroke: #fb8c2e; }
+      .pa { stroke: #fb8c2e; }
+      .pb { stroke: #79c0ff; }
+      .ring.rb { stroke: #79c0ff; }
+    }
+  </style>
+
+  <defs>
+    <path id="cf-neo"  d="M 280 96 C 280 150, 170 150, 170 200"/>
+    <path id="neo-cf"  d="M 170 200 C 170 150, 280 150, 280 96"/>
+    <path id="cf-cay"  d="M 390 96 C 390 150, 500 150, 500 200"/>
+    <path id="cay-cf"  d="M 500 200 C 500 150, 390 150, 390 96"/>
+    <path id="neo-cay" d="M 300 250 L 370 250"/>
+    <path id="cay-neo" d="M 370 250 L 300 250"/>
+    <path id="cay-ora" d="M 630 250 L 700 250"/>
+    <path id="ora-cay" d="M 700 250 L 630 250"/>
+  </defs>
+
+  <rect class="panel" x="0.5" y="0.5" width="999" height="329" rx="14"/>
+  <text class="label" x="36" y="44"><tspan class="b">●</tspan> MY HOMELAB</text>
+
+  <!-- wires -->
+  <g fill="none" stroke-width="3" stroke-linecap="round">
+    <use href="#cf-neo" class="wire"/><use href="#cf-cay" class="wire"/>
+    <use href="#neo-cay" class="wire"/><use href="#cay-ora" class="wire"/>
+  </g>
+
+  <text class="edge" x="214" y="146" text-anchor="end">tunnel</text>
+  <text class="edge" x="456" y="146">tunnel</text>
+  <text class="edge" x="335" y="238" text-anchor="middle">tailnet</text>
+  <text class="edge" x="665" y="238" text-anchor="middle">tailnet</text>
+
+  <!-- flow: streams one way, dots the other -->
+  <g fill="none" stroke-linecap="round">
+    <path class="stream glow pa" d="M 280 96 C 280 150, 170 150, 170 200" style="animation-delay:0s"/>
+    <path class="stream pa" d="M 280 96 C 280 150, 170 150, 170 200" style="animation-delay:0s"/>
+    <path class="dots pb" d="M 170 200 C 170 150, 280 150, 280 96" style="animation-delay:0s"/>
+    <path class="stream glow pa" d="M 390 96 C 390 150, 500 150, 500 200" style="animation-delay:-0.5s"/>
+    <path class="stream pa" d="M 390 96 C 390 150, 500 150, 500 200" style="animation-delay:-0.5s"/>
+    <path class="dots pb" d="M 500 200 C 500 150, 390 150, 390 96" style="animation-delay:-0.2s"/>
+    <path class="stream glow pb" d="M 300 250 L 370 250" style="animation-delay:-0.3s"/>
+    <path class="stream pb" d="M 300 250 L 370 250" style="animation-delay:-0.3s"/>
+    <path class="dots pa" d="M 370 250 L 300 250" style="animation-delay:-0.1s"/>
+    <path class="stream glow pb" d="M 700 250 L 630 250" style="animation-delay:-0.7s"/>
+    <path class="stream pb" d="M 700 250 L 630 250" style="animation-delay:-0.7s"/>
+    <path class="dots pa" d="M 630 250 L 700 250" style="animation-delay:-0.3s"/>
+  </g>
+
+  <!-- cloudflare -->
+  <rect class="node" x="225" y="36" width="220" height="60" rx="10"/>
+  <text class="title" x="247" y="72">cloudflare</text>
+  <circle class="a" cx="421" cy="66" r="4"/>
+  <circle class="ring" cx="421" cy="66" r="4" stroke-width="1.2"><animate attributeName="r" values="4;13" dur="2.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite"/></circle>
+
+  <!-- neo -->
+  <rect class="node" x="40" y="200" width="260" height="100" rx="10"/>
+  <text class="title" x="62" y="232">neo</text>
+  <text class="key" x="62" y="260">cpu</text><text class="val" x="102" y="260">threadripper</text>
+  <text class="key" x="62" y="282">gpu</text><text class="val" x="102" y="282">rtx pro 4000 blackwell</text>
+  <circle class="b" cx="276" cy="226" r="4"/>
+  <circle class="ring rb" cx="276" cy="226" r="4" stroke-width="1.2"><animate attributeName="r" values="4;13" dur="2.8s" begin="-0.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;0" dur="2.8s" begin="-0.6s" repeatCount="indefinite"/></circle>
+
+  <!-- cayde -->
+  <rect class="node" x="370" y="200" width="260" height="100" rx="10"/>
+  <text class="title" x="392" y="232">cayde</text>
+  <text class="key" x="392" y="260">cpu</text><text class="val" x="432" y="260">threadripper</text>
+  <text class="key" x="392" y="282">gpu</text><text class="val" x="432" y="282">rtx 4000 ada</text>
+  <circle class="b" cx="606" cy="226" r="4"/>
+  <circle class="ring rb" cx="606" cy="226" r="4" stroke-width="1.2"><animate attributeName="r" values="4;13" dur="2.8s" begin="-2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;0" dur="2.8s" begin="-2.2s" repeatCount="indefinite"/></circle>
+  <!-- oracle -->
+  <rect class="node" x="700" y="200" width="260" height="100" rx="10"/>
+  <text class="title" x="722" y="232">oracle</text>
+  <text class="key" x="722" y="260">cpu</text><text class="val" x="762" y="260">ryzen</text>
+  <text class="key" x="722" y="282">gpu</text><text class="val" x="762" y="282">rtx 4090</text>
+  <circle class="b" cx="936" cy="226" r="4"/>
+  <circle class="ring rb" cx="936" cy="226" r="4" stroke-width="1.2"><animate attributeName="r" values="4;13" dur="2.8s" begin="-1.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;0" dur="2.8s" begin="-1.4s" repeatCount="indefinite"/></circle>
+
+</svg>
